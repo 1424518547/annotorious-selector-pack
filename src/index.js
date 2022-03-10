@@ -2,6 +2,7 @@ import PointTool from './point/PointTool';
 import RubberbandCircleTool from './circle/RubberbandCircleTool';
 import RubberbandEllipseTool from './ellipse/RubberbandEllipseTool';
 import RubberbandFreehandTool from './freehand/RubberbandFreehandTool';
+import RubberbandLineTool from './line/RubberbandLineTool';
 import RubberbandMultipolygonTool from './multipolygon/RubberbandMultipolygonTool';
 
 const ALL_TOOLS = new Set([
@@ -9,13 +10,14 @@ const ALL_TOOLS = new Set([
   'circle',
   'ellipse',
   'freehand',
+  'line'
   // 'multipolygon' // exclude from defaults for now
 ]);
 
 const SelectorPack = (anno, config) => {
 
   // Add configured tools, or all
-  const tools = config?.tools ? 
+  const tools = config?.tools ?
     config.tools.map(t => t.toLowerCase()) : ALL_TOOLS;
 
   tools.forEach(tool => {
@@ -27,9 +29,12 @@ const SelectorPack = (anno, config) => {
 
     if (tool === 'ellipse')
       anno.addDrawingTool(RubberbandEllipseTool);
-  
+
     if (tool === 'freehand')
       anno.addDrawingTool(RubberbandFreehandTool);
+
+    if (tool === 'line')
+      anno.addDrawingTool(RubberbandLineTool);
 
     if (tool === 'multipolygon')
       anno.addDrawingTool(RubberbandMultipolygonTool);

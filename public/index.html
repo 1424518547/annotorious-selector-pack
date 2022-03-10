@@ -1,52 +1,56 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Annotorious | Selector Pack</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@recogito/annotorious@2.5.9/dist/annotorious.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@recogito/annotorious@2.5.9/dist/annotorious.min.js"></script>
-    <style>
-      #hallstatt {
-        max-width:100%;
-      }
-    </style>
-  </head>
-  <body>
-    <p>
-      <button id="current-tool">RECT</button>
-    </p>
-    <img id="hallstatt" src="1280px-Hallstatt.jpg">
 
-    <script src="annotorious-selector-pack.js"></script>
-    <script>
-      window.onload = function() {
-        var anno = Annotorious.init({
-          image: 'hallstatt',
-          allowEmpty: true
-        });
+<head>
+  <title>Annotorious | Selector Pack</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@recogito/annotorious@2.5.9/dist/annotorious.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@recogito/annotorious@2.5.9/dist/annotorious.min.js"></script>
+  <style>
+    #hallstatt {
+      max-width: 100%;
+    }
+  </style>
+</head>
 
-        Annotorious.SelectorPack(anno, {
-          tools: ['circle', 'ellipse', 'rect', 'freehand', 'polygon']
-        });
+<body>
+  <p>
+    <button id="current-tool">RECT</button>
+  </p>
+  <img id="hallstatt" src="1280px-Hallstatt.jpg">
 
-        var tools = anno.listDrawingTools();
-        console.log(tools);
+  <script src="annotorious-selector-pack.js"></script>
+  <script>
+    window.onload = function () {
+      var anno = Annotorious.init({
+        image: 'hallstatt',
+        allowEmpty: true
+      });
 
-        var selected = 0;
+      Annotorious.SelectorPack(anno, {
+        tools: ['circle', 'ellipse', 'line', 'rect', 'freehand', 'polygon']
+      });
 
-        var toolToggle = document.getElementById('current-tool');
-        toolToggle.addEventListener('click', function() {
-          selected += 1;
-          selected = selected % tools.length;
+      var tools = anno.listDrawingTools();
+      console.log(tools);
 
-          var tool = tools[selected];
-          toolToggle.innerHTML = tool.toUpperCase();
-          anno.setDrawingTool(tool);
-        });
+      var selected = 0;
 
-        anno.on('createAnnotation', function(a) {
-          console.log('create', a);
-        });
-      }
-    </script>
-  </body>
+      var toolToggle = document.getElementById('current-tool');
+      toolToggle.addEventListener('click', function () {
+        selected += 1;
+        selected = selected % tools.length;
+
+        var tool = tools[selected];
+        toolToggle.innerHTML = tool.toUpperCase();
+        console.log('click')
+        anno.setDrawingTool(tool);
+      });
+
+      anno.on('createAnnotation', function (a) {
+        console.log('create', a);
+      });
+    }
+  </script>
+</body>
+
 </html>
